@@ -1,5 +1,4 @@
 language: python:2.7
-sudo: true
 
 install:
     - apt-get update -qy
