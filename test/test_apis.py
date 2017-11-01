@@ -56,5 +56,19 @@ class TestMalshrAPI(unittest.TestCase):
         self.assertIsNotNone(self.malshare.m_api_daily_md5_file_type('PE32'))
         self.tearDown()
 
+class TestVTIAPI(unittest.TestCase):
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+class TestOTXAPI(unittest.TestCase):
+    def setUp(self):
+        pass)
+
+    def tearDown(self):
+        pass
+
 if __name__ == '__main__':
     unittest.main()
