@@ -65,7 +65,7 @@ class TestVTIAPI(unittest.TestCase):
 
 class TestOTXAPI(unittest.TestCase):
     def setUp(self):
-        pass)
+        pass
 
     def tearDown(self):
         pass
