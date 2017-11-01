@@ -18,9 +18,7 @@ class Malshare_API:
     a_api_download_sample = ''
     a_api_file_details = ''
     a_api_daily_md5_file_type = ''
-
-    # TODO: Implement
-    a_api_query_md5_file_sample = '/api.php?api_key='+a_malshare_api_key+'&action=search&query='#[SEARCH QUERY]		# Search sample hashes, sources and file names : 				format: Raw data
+    a_api_query_md5_file_sample = ''
 
     def __init__(self):
         try:
@@ -47,6 +45,9 @@ class Malshare_API:
             self.a_api_file_details = 'https://malshare.com/api.php?api_key='+self.a_malshare_api_key+'&action=details&hash='#[HASH]			    # Get stored file details :										format: JSON
             self.a_api_daily_md5_file_type = 'https://malshare.com/api.php?api_key='+self.a_malshare_api_key+'&action=type&type='#[FILE TYPE]		# List MD5 hashes of a specific type from the past 24 hours :	format: JSON
             self.api_logger.debug('Successfully set all api calls')
+
+            # TODO: Implement
+            # self.a_api_query_md5_file_sample = '/api.php?api_key='+a_malshare_api_key+'&action=search&query='#[SEARCH QUERY]		# Search sample hashes, sources and file names : 				format: Raw data
 
     def m_api_daily_md5_string(self):
         """
@@ -363,42 +364,3 @@ class Malshare_API:
                 except ValueError:
                     self.master_logger.error('JSON Decode failed')
                     self.api_logger.error('JSON Decode failed')
-
-#def main():
-#    malshare = Malshare_API()
-#
-#    # Small test file
-#    md5 = 'b63bff90e6a55c4a404a8a48d076de45'
-#
-#    assert malshare.m_api_daily_md5_string()
-#    print "PASS: m_api_daily_md5_string"
-#
-#    assert malshare.m_api_daily_md5_list()
-#    print "PASS: m_api_daily_md5_list"
-#
-#    assert malshare.m_api_daily_sources_string()
-#    print "PASS: m_api_daily_sources_string"
-#
-#    assert malshare.m_api_daily_sources_list()
-#    print "PASS: m_api_daily_sources_list"
-#
-#    response = malshare.m_api_raw_sample(md5)
-#    assert response
-#    with open('./7e2cf4827760a04315e53daa8e388a74', 'wb') as f:
-#        shutil.copyfileobj(response, f, 16*1024)
-#    os.remove('./7e2cf4827760a04315e53daa8e388a74')
-#    print "PASS: m_api_download_sample"
-#
-#    assert malshare.m_api_download_sample(md5)
-#    os.remove('./b63bff90e6a55c4a404a8a48d076de45')
-#    print "PASS: m_api_download_sample"
-#
-#    assert malshare.m_api_file_details(md5)
-#    print "PASS: m_api_file_details"
-#
-#    assert malshare.m_api_daily_md5_file_type('PE32')
-#    print "PASS: m_api_daily_md5_file_type"
-
-#if __name__ == "__main__":
-#    #main()
-#    unittest.main()
