@@ -6,6 +6,7 @@ from api import malshr_api
 
 class TestMalshrAPI(unittest.TestCase):
     malshare = ''
+    vti
     md5 = ''
     hash_md5 = ''
 
@@ -58,10 +59,53 @@ class TestMalshrAPI(unittest.TestCase):
 
 class TestVTIAPI(unittest.TestCase):
     def setUp(self):
-        pass
+        self.vti = VTI_API()
+        self.md5 = '231a8de70336d7dbfff05de94d0c33a2'
 
     def tearDown(self):
-        pass
+        del self.vti
+        self.vti = None
+
+    def test_m_api_md5_download(self):
+        self.setUp()
+        self.assertIsNotNone(self.vti.m_api_md5_download(md5))
+        self.tearDown()
+
+    def test_m_api_scan_file(self):
+
+#assert vti.m_api_scan_file("./"+md5)
+#print "PASS: m_api_scan_file"
+#os.remove("./"+md5)
+#
+## Large test file : WARNING: Malicious File
+#md5 = '4f5902bf3aef48a4b20b65fff434c98e'
+#
+#vti.m_api_md5_download(md5)
+#
+#assert vti.m_api_scan_large_file("./"+md5)
+#print "PASS: m_api_scan_large_file"
+#os.remove("./"+md5)
+
+    def test_m_api_md5_report(md5)
+        #assert vti.m_api_md5_report(md5)
+        #print "PASS: m_api_md5_report"
+
+    def test_m_api_md5_behaviour(md5)
+        #assert vti.m_api_md5_behaviour(md5)
+        #print "PASS: m_api_md5_behaviour"
+
+    def test_m_api_md5_pcap(self):
+        ##assert vti.m_api_md5_pcap(md5, "./"+md5)
+        ##print "PASS: m_api_md5_pcap"
+        ##os.remove("./"+md5)
+
+    def test_m_api_search(self):
+        #assert vti.m_api_search('type:peexe size:90kb+ positives:5+ behaviour:"taskkill"')
+        #print "PASS: m_api_search"
+
+    def test_m_api_fp_report(self):
+        ##assert vti.m_api_fp_report()
+        ##print "PASS: m_api_fp_report"
 
 class TestOTXAPI(unittest.TestCase):
     def setUp(self):
