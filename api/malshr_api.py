@@ -34,7 +34,6 @@ class Malshare_API:
             self.master_logger.error('Environment variable $%s does not exist', 'MALSHR_API_KEY')
             self.api_logger.error('Environment variable $%s does not exist', 'MALSHR_API_KEY')
             raise
-
         else:
             self.api_logger.debug('Set all api calls')
             self.a_api_daily_md5_html = 'https://malshare.com/api.php?api_key='+self.a_malshare_api_key+'&action=getlist'							# List MD5 hashes from the past 24 hours :						format: List seperated by HTML line break

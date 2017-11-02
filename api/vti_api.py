@@ -1,8 +1,8 @@
-import requests
 import os
+import requests
 
 class VTI_API:
-    a_malshare_api_key = ''
+    a_vti_api_key = ''
 
     a_api_scan_file = 'https://www.virustotal.com/vtapi/v2/file/scan'
     a_api_scan_large_file = 'https://www.virustotal.com/vtapi/v2/file/scan/upload_url'
@@ -14,8 +14,20 @@ class VTI_API:
     a_api_md5_download = 'https://www.virustotal.com/vtapi/v2/file/download'
     a_api_fp_report = 'https://www.virustotal.com/vtapi/v2/file/false-positives'
 
-    def m_get_api_key():
-        self.a_malshare_api_key = os.environ['VTI_API_KEY']
+    def __init__(self):
+        try:
+            logger_util.setup_logger('master_logger', 'master.log', logging.INFO)
+            logger_util.setup_logger('api_logger', 'api.log', logging.INFO)
+            self.master_logger = logging.getLogger('master_logger')
+            self.api_logger = logging.getLogger('api_logger')
+
+            self.api_logger.debug('Getting environment variable $%s', 'MALSHR_API_KEY')
+            self.a_vti_api_key = os.environ['VTI_API_KEY']
+            self.api_logger.debug('Successfully found api key')
+        except:
+            self.master_logger.error('Environment variable $%s does not exist', 'MALSHR_API_KEY')
+            self.api_logger.error('Environment variable $%s does not exist', 'MALSHR_API_KEY')
+            raise
 
     def m_api_scan_file(self, file_location):
         """
@@ -34,7 +46,6 @@ class VTI_API:
             response contains scan_id to access report and other info
         """
         try:
-            self.m_get_api_key()
             params = {'apikey':self.a_malshare_api_key}
             files = {'file': (file_location, open(file_location, 'rb'))}
             response = requests.post(self.a_api_scan_file, files=files, params=params)
@@ -60,7 +71,6 @@ class VTI_API:
             response contains scan_id to access report and other info
         """
         try:
-            self.m_get_api_key()
             params = {'apikey':self.a_malshare_api_key}
 
             # obtaining the upload URL
@@ -92,7 +102,6 @@ class VTI_API:
             report detailing file
         """
         try:
-            self.m_get_api_key()
             params = {'apikey':self.a_malshare_api_key,'resource':md5}
             headers = {
               "Accept-Encoding": "gzip, deflate",
@@ -120,7 +129,6 @@ class VTI_API:
             report detailing file
         """
         try:
-            self.m_get_api_key()
             params = {'apikey':self.a_malshare_api_key,'hash': md5}
             headers = {
                 "Accept-Encoding": "gzip, deflate",
@@ -150,7 +158,6 @@ class VTI_API:
         none
         """
         try:
-            self.m_get_api_key()
             params = {'apikey':self.a_malshare_api_key,'hash':md5}
 
             headers = {
@@ -201,7 +208,6 @@ class VTI_API:
             report detailing file
         """
         try:
-            self.m_get_api_key()
             headers = {
                 "Accept-Encoding": "gzip, deflate",
                 "User-Agent" : "gzip,  graywolf"
@@ -229,7 +235,6 @@ class VTI_API:
             report detailing cluster information
         """
         try:
-            self.m_get_api_key()
             params = {'apikey': self.a_malshare_api_key, 'date': date}
             response = requests.get(self.a_api_clusters, params=params)
             return response.json()
@@ -252,7 +257,6 @@ class VTI_API:
         none
         """
         try:
-            self.m_get_api_key()
             headers = {
                 "Accept-Encoding": "gzip, deflate",
                 "User-Agent" : "gzip,  graywolf"
@@ -283,7 +287,6 @@ class VTI_API:
         none
         """
         try:
-            self.m_get_api_key()
             headers = {'User-Agent': 'gzip', 'Accept-Encoding': 'gzip'}
             params = {'apikey': self.a_malshare_api_key, 'limit': 500}
             response = requests.get(self.a_api_fp_report, params=params, headers=headers)
